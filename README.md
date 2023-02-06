@@ -68,3 +68,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Tailwind CSS
+
+You can learn more in the [Tailwind CSS](https://tailwindcss.com/docs/installation).
+
+### Axios
+
+You can learn more in the [Axios](https://axios-http.com/docs/intro).
+
+### React-router-dom
+
+You can learn more in the [React-router-dom](https://reactrouter.com/en/main).
+
+### React Icons
+
+You can learn more in the [React Icons](https://react-icons.github.io/react-icons/).
+
+### React Helmet
+
+You can learn more in the [React Helmet](https://www.npmjs.com/package/react-helmet).
+
+### React-textarea-autosize
+
+You can learn more in the [React-textarea-autosize](https://www.npmjs.com/package/react-textarea-autosize).
