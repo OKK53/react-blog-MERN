@@ -13,7 +13,6 @@ const multer = require("multer");
 const path = require("path");
 
 dotenv.config();
-//apptication a json object sendleyebiliriz
 app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname, "/images")));
