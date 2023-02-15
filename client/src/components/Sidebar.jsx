@@ -20,7 +20,7 @@ export default function Sidebar() {
       <div className="flex flex-col items-center">
         {/*sidebarItem */}
         <span className="m-2 p-1 w-[80%] border-y font-varela  text-[#222] font-semibold leading-5 text-center">
-          {/*sidebarTitle */}ABOUT ME
+          {/*sidebarTitle */}ABOUT BLOG
         </span>
         <img className="mt-3 w-64 h-64" src={nessaImage} alt="nessaImage" />
         <p className="p-7">

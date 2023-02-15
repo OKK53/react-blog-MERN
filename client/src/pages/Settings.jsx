@@ -15,6 +15,12 @@ export default function Settings() {
 
   const PF = "http://localhost:5000/images/";
 
+  const headerObject = {
+    headers: {
+      token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+    },
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
@@ -35,13 +41,30 @@ export default function Settings() {
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser);
+      const res = await axios.put(
+        "/users/" + user._id,
+        updatedUser,
+        headerObject
+      );
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
+
+  //delete account func
+  const deleteUser = async () => {
+    try {
+      await axios.delete("/users/" + user._id, headerObject);
+      dispatch({
+        type: "LOGOUT",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="grid grid-col-1 md:flex">
       <Helmet>
@@ -55,7 +78,10 @@ export default function Settings() {
           <span className="text-3xl mb-5 text-red-300">
             {/*settingsUpdateTitle*/}Update Your Account
           </span>
-          <span className="text-red-600 text-sm cursor-pointer">
+          <span
+            className="text-red-600 text-sm cursor-pointer"
+            onClick={deleteUser}
+          >
             {/*settingsDeleteTitle*/}Delete Your Account
           </span>
         </div>

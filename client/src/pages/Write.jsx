@@ -29,7 +29,12 @@ export default function Write() {
       } catch (err) {}
     }
     try {
-      const res = await axios.post("/posts", newPost);
+      const res = await axios.post("/posts", newPost, {
+        headers: {
+          token:
+            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        },
+      });
       window.location.replace("/post/" + res.data._id);
     } catch (err) {}
   };

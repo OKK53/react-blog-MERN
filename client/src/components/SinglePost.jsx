@@ -1,4 +1,3 @@
-// import singlePostImage from "assets/singlePostImage.jpg";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
@@ -17,6 +16,12 @@ export default function SinglePost() {
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
+  const headerObject = {
+    headers: {
+      token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+    },
+  };
+
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
@@ -29,21 +34,22 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      // `/posts/${post._id}`
-      await axios.delete("/posts/" + path, {
-        data: { username: user.username },
-      });
+      await axios.delete(`/posts/${post._id}`, headerObject);
       window.location.replace("/");
     } catch (err) {}
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`/posts/${post._id}`, {
-        username: user.username,
-        title,
-        desc,
-      });
+      await axios.put(
+        `/posts/${post._id}`,
+        {
+          username: user.username,
+          title,
+          desc,
+        },
+        headerObject
+      );
       // window.location.reload();
       setUpdateMode(false);
     } catch (err) {}
