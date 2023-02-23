@@ -1,4 +1,3 @@
-// import heroImage from 'assets/heroImage.jpg';
 import heroImage_1 from "assets/heroImage_1.jpg";
 
 export default function Header() {

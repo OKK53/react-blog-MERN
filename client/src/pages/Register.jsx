@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Register() {
@@ -8,19 +8,23 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
+    setErrMsg("");
     try {
       const res = await axios.post("/auth/register", {
         username,
         email,
         password,
       });
-      res.data && window.location.replace("/login");
+      res.data && navigate("/login");
     } catch (err) {
       setError(true);
+      setErrMsg(err.response.data);
     }
   };
   return (
@@ -34,10 +38,9 @@ export default function Register() {
       <Helmet>
         <title>Register - OKK Blog React App</title>
       </Helmet>
-      {/*Register*/}
-      <span className="text-5xl">{/*RegisterTitle*/}Register</span>
+
+      <span className="text-5xl">Register</span>
       <form className="mt-5 flex flex-col" onSubmit={handleSubmit}>
-        {/*RegisterForm*/}
         <label className="py-2" htmlFor="usename">
           Username
         </label>
@@ -74,15 +77,12 @@ export default function Register() {
         >
           Register
         </button>
-        {/*RegisterButton*/}
       </form>
       <button className="absolute top-[60px] right-6 cursor-pointer border-none p-2 text-white rounded-lg bg-red-400 hover:bg-red-700">
         <Link to="/login">Login</Link>
       </button>
-      {/*RegisterLoginButton*/}
-      {error && (
-        <span className="text-red-600 mt-3">Something went wrong!</span>
-      )}
+
+      {error && <span className="text-red-600 mt-3">{errMsg}</span>}
     </div>
   );
 }

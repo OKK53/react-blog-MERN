@@ -18,9 +18,8 @@ export default function Sidebar() {
   return (
     <div className="flex flex-col flex-[3] items-center m-5 pb-7 bg-zinc-50 rounded-xl ">
       <div className="flex flex-col items-center">
-        {/*sidebarItem */}
         <span className="m-2 p-1 w-[80%] border-y font-varela  text-[#222] font-semibold leading-5 text-center">
-          {/*sidebarTitle */}ABOUT BLOG
+          ABOUT BLOG
         </span>
         <img className="mt-3 w-64 h-64" src={nessaImage} alt="nessaImage" />
         <p className="p-7">
@@ -30,28 +29,25 @@ export default function Sidebar() {
         </p>
       </div>
       <div className="flex flex-col items-center">
-        {/*sidebarItem */}
         <span className="m-2 p-2 w-[80%] border-y font-varela  text-[#222] font-semibold leading-5 text-center">
-          {/*sidebarTitle */}CATEGORIES
+          CATEGORIES
         </span>
         <ul className="mb-7">
           {cats.map((c, idx) => (
             <Link key={idx} to={`/?cat=${c.name}`}>
               <li className="inline-block w-[50%] mt-4 cursor-pointer hover:text-blue-400 transition-all">
-                {/*sidebarListItem */} {c.name}
+                {" "}
+                {c.name}
               </li>
             </Link>
           ))}
-          {/*sidebarList */}
         </ul>
       </div>
       <div className="flex flex-col items-center">
-        {/*sidebarItem */}
         <span className="m-2 p-1 w-[80%] border-y font-varela  text-[#222] font-semibold leading-5 text-center">
-          {/*sidebarTitle */}FOLLOW US
+          FOLLOW US
         </span>
         <div className="mt-4 flex w-[250px] items-center justify-center text-lg">
-          {/*sidebarSocial */}
           <Link to="https://discord.com/invite/4xFZmc6uWK" target="_blank">
             <FaDiscord className="ml-2 cursor-pointer hover:text-blue-400 transition-all" />
           </Link>

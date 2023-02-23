@@ -8,6 +8,7 @@ export default function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
   const { isFetching, dispatch } = useContext(Context);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
@@ -17,7 +18,6 @@ export default function Login() {
         password: passwordRef.current.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      // window.location.replace("/login");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }
@@ -33,10 +33,9 @@ export default function Login() {
       <Helmet>
         <title>Login - OKK Blog React App</title>
       </Helmet>
-      {/*login*/}
-      <span className="text-5xl">{/*loginTitle*/}Login</span>
+
+      <span className="text-5xl">Login</span>
       <form className="mt-5 flex flex-col" onSubmit={handleSubmit}>
-        {/*loginForm*/}
         <label className="py-2" htmlFor="username">
           Username
         </label>
@@ -64,12 +63,10 @@ export default function Login() {
         >
           Login
         </button>
-        {/*loginButton*/}
       </form>
       <button className="absolute top-[60px] right-6 bg-teal-500 hover:bg-teal-800 cursor-pointer border-none p-2 text-white rounded-lg">
         <Link to="/register">Register</Link>
       </button>
-      {/*loginRegisterButton*/}
     </div>
   );
 }

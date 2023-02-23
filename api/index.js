@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 //Routes
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
@@ -13,19 +14,25 @@ const multer = require("multer");
 const path = require("path");
 
 dotenv.config();
+//sending to app a json object
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/images", express.static(path.join(__dirname, "/images")));
 
 mongoose.set("strictQuery", true);
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err));
-
+const connectDB = async () => {
+  try {
+    await mongoose
+      .connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then(console.log("Connected to MongoDB"));
+  } catch (err) {
+    console.log(err);
+  }
+};
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -46,5 +53,6 @@ app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
 app.listen("5000", () => {
-  console.log("Backend is running.");
+  connectDB();
+  console.log("Backend server is running.");
 });

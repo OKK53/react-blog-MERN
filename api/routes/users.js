@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
-const verify = require("../verifyToken");
+const verify = require("../utils/verifyToken");
 
 //UPDATE
 router.put("/:id", verify, async (req, res) => {
@@ -27,6 +27,7 @@ router.put("/:id", verify, async (req, res) => {
     res.status(403).json("You can update only your account!");
   }
 });
+
 //DELETE
 router.delete("/:id", verify, async (req, res) => {
   if (req.user.id === req.params.id) {
@@ -51,11 +52,11 @@ router.delete("/:id", verify, async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    // do not want the pw to be sent
     const { password, ...others } = user._doc;
     res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 module.exports = router;

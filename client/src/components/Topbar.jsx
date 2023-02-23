@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { Context } from "context/AuthContext";
 import { IoIosMenu, IoIosClose } from "react-icons/io";
+import axios from "axios";
 
 export default function Topbar() {
   const { user, dispatch } = useContext(Context);
@@ -11,10 +12,19 @@ export default function Topbar() {
 
   const PF = "http://localhost:5000/images/";
 
-  const handleLogout = () => {
-    dispatch({
-      type: "LOGOUT",
-    });
+  const credentials = {
+    withCredentials: true,
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/auth/logout", credentials);
+      dispatch({
+        type: "LOGOUT",
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <nav className="w-full h-12 bg-white sticky top-0 z-50 flex items-center font-josefin transition-all">

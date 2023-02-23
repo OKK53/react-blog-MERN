@@ -14,6 +14,7 @@ import { Context } from "context/AuthContext";
 
 function App() {
   const { user } = useContext(Context);
+
   return (
     <>
       <Topbar />

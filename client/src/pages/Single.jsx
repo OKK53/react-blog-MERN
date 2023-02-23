@@ -8,7 +8,6 @@ export default function Single() {
       <Helmet>
         <title>Single Post - OKK Blog React App</title>
       </Helmet>
-      {/*singlePost*/}
       <SinglePost />
       <Sidebar />
     </div>

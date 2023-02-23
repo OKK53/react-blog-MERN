@@ -43,7 +43,7 @@ export default function Write() {
       <Helmet>
         <title>Write - OKK Blog React App</title>
       </Helmet>
-      {/*write */}
+
       {file && (
         <img
           className="ml-36 w-[70vw] h-[250px] rounded-lg object-cover"
@@ -52,9 +52,7 @@ export default function Write() {
         />
       )}
       <form className="relative" onSubmit={handleSubmit}>
-        {/*writeForm */}
         <div className="ml-36 flex items-center">
-          {/*writeFormGroup */}
           <label htmlFor="fileInput">
             <IoIosAdd className="w-7 h-7 rounded-[50%] border flex items-center justify-center text-xl cursor-pointer text-gray-600" />
           </label>
@@ -71,22 +69,20 @@ export default function Write() {
             autoFocus={true}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {/*writeInput */}
         </div>
         <div className="ml-36 flex items-center">
-          {/*writeFormGroup */}
           <TextareaAutosize
             className="text-3xl p-5 w-[70vw] focus:outline-none text-inherit"
             placeholder="Tell your story..."
             type="text"
             onChange={(e) => setDesc(e.target.value)}
           ></TextareaAutosize>
-          {/*writeFormGroup  writeText*/}
+
           <button
             type="submit"
             className="absolute top-5 right-12 text-white bg-teal-700 p-2 border-none rounded-lg cursor-pointer font-medium"
           >
-            {/*writeSubmit */}Publish{" "}
+            Publish{" "}
           </button>
         </div>
       </form>

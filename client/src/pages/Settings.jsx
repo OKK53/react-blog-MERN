@@ -15,12 +15,9 @@ export default function Settings() {
 
   const PF = "http://localhost:5000/images/";
 
-  const headerObject = {
-    headers: {
-      token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-    },
+  const credentials = {
+    withCredentials: true,
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
@@ -44,7 +41,7 @@ export default function Settings() {
       const res = await axios.put(
         "/users/" + user._id,
         updatedUser,
-        headerObject
+        credentials
       );
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
@@ -56,7 +53,7 @@ export default function Settings() {
   //delete account func
   const deleteUser = async () => {
     try {
-      await axios.delete("/users/" + user._id, headerObject);
+      await axios.delete("/users/" + user._id, credentials);
       dispatch({
         type: "LOGOUT",
       });
@@ -70,28 +67,24 @@ export default function Settings() {
       <Helmet>
         <title>Settings - OKK Blog React App</title>
       </Helmet>
-      {/*settings*/}
+
       <div className="flex-[9] p-5">
-        {/*settingsWrapper*/}
         <div className="flex items-center justify-between">
-          {/*settingsTitle*/}
           <span className="text-3xl mb-5 text-red-300">
-            {/*settingsUpdateTitle*/}Update Your Account
+            Update Your Account
           </span>
           <span
             className="text-red-600 text-sm cursor-pointer"
             onClick={deleteUser}
           >
-            {/*settingsDeleteTitle*/}Delete Your Account
+            Delete Your Account
           </span>
         </div>
         <form className="flex flex-col" onSubmit={handleSubmit}>
-          {/*settingsForm*/}
           <label className="mt-5" htmlFor="">
             Profile Picture
           </label>
           <div className="flex items-center my-2">
-            {/*settingsPP*/}
             <img
               className="w-16 h-16 rounded-2xl object-cover"
               src={
@@ -105,7 +98,6 @@ export default function Settings() {
             />
             <label className="mt-5" htmlFor="fileInput">
               <BiUserCircle className="w-6 h-6 p-1 rounded-[50%] border-none bg-red-400 text-white flex items-center justify-center ml-2 cursor-pointer" />
-              {/*settingsPPicon*/}
             </label>
             <input
               type="file"
@@ -152,7 +144,6 @@ export default function Settings() {
               Profile has been updated...
             </span>
           )}
-          {/*settingsSubmit*/}
         </form>
       </div>
       <Sidebar />

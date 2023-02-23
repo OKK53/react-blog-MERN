@@ -16,10 +16,8 @@ export default function SinglePost() {
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
-  const headerObject = {
-    headers: {
-      token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-    },
+  const credentials = {
+    withCredentials: true,
   };
 
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/posts/${post._id}`, headerObject);
+      await axios.delete(`/posts/${post._id}`, credentials);
       window.location.replace("/");
     } catch (err) {}
   };
@@ -48,17 +46,15 @@ export default function SinglePost() {
           title,
           desc,
         },
-        headerObject
+        credentials
       );
-      // window.location.reload();
       setUpdateMode(false);
     } catch (err) {}
   };
+
   return (
     <div className="flex-[9]">
-      {/*singlePost*/}
       <div className="p-5 pr-0 flex flex-col">
-        {/*singlePostWrapper*/}
         {post.photo && (
           <img
             className="w-full h-[300px] rounded-md object-cover"
@@ -76,36 +72,30 @@ export default function SinglePost() {
           />
         ) : (
           <h1 className="text-center font-lora m-2 text-2xl">
-            {/*singlePostTitle*/} {title}
+            {title}
             {post.username === user?.username && (
               <div className="flex float-right gap-x-2">
-                {/*singlePostEdit*/}
                 <FiEdit
                   className="cursor-pointer text-teal-500"
                   onClick={() => setUpdateMode(true)}
                 />
-                {/*singlePostIcon*/}
                 <RiDeleteBinLine
                   className="cursor-pointer text-red-500"
                   onClick={handleDelete}
-                />{" "}
-                {/*singlePostIcon*/}
+                />
               </div>
             )}
           </h1>
         )}
 
         <div className="flex mb-5 justify-between text-yellow-500 font-varela">
-          {/*singlePostInfo*/}
           <span>
             Author:
             <Link to={`/?user=${post.username}`}>
               <b>{post.username}</b>
             </Link>
           </span>{" "}
-          {/*singlePostAuthor*/}
           <span>{new Date(post.createdAt).toDateString()}</span>{" "}
-          {/*singlePostDate*/}
         </div>
         {updateMode ? (
           <TextareaAutosize
