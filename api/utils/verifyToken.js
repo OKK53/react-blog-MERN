@@ -4,7 +4,10 @@ function verify(req, res, next) {
   const token = req.cookies.accessToken;
   if (token) {
     jwt.verify(token, process.env.MY_SECRET_KEY, (err, user) => {
-      if (err) res.status(403).json("Token is not valid!");
+      if (err) {
+        res.status(403).json("Token is not valid!");
+        console.log("hataburada1");
+      }
       req.user = user;
       next();
     });

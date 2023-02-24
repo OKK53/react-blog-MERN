@@ -9,11 +9,36 @@ import Contact from "pages/Contact";
 import Single from "pages/Single";
 import Page404 from "pages/Page404";
 import { Routes, Route } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "context/AuthContext";
+import axios from "axios";
 
 function App() {
   const { user } = useContext(Context);
+
+  const credentials = {
+    withCredentials: true,
+  };
+
+  const refreshToken = async () => {
+    try {
+      await axios.get("/auth/refresh", credentials);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      const interval = setInterval(() => {
+        refreshToken();
+      }, 1000 * 29);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  });
 
   return (
     <>

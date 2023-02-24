@@ -11,6 +11,10 @@ export default function Write() {
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
 
+  const credentials = {
+    withCredentials: true,
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPost = {
@@ -29,15 +33,15 @@ export default function Write() {
       } catch (err) {}
     }
     try {
-      const res = await axios.post("/posts", newPost, {
-        headers: {
-          token:
-            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-        },
-      });
+      const res = await axios.post("/posts", newPost, credentials);
+      console.log("bug1");
       window.location.replace("/post/" + res.data._id);
-    } catch (err) {}
+      console.log("bug2");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <div className="pt-12">
       <Helmet>

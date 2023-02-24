@@ -16,10 +16,6 @@ export default function SinglePost() {
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
-  const credentials = {
-    withCredentials: true,
-  };
-
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
@@ -29,6 +25,10 @@ export default function SinglePost() {
     };
     getPost();
   }, [path]);
+
+  const credentials = {
+    withCredentials: true,
+  };
 
   const handleDelete = async () => {
     try {

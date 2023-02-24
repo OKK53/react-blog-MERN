@@ -18,6 +18,7 @@ export default function Settings() {
   const credentials = {
     withCredentials: true,
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
